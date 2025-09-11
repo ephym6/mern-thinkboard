@@ -14,9 +14,4 @@ app.use('/api/notes', notesRoutes);
 
 app.listen(PORT, () => {
     console.log('Server is running on PORT ' + PORT);
-})
-
-
-
-
-// mongodb+srv://ephym:<db_password>@cluster0.g9bmm85.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+});
