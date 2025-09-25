@@ -14,12 +14,12 @@ connectDB();
 app.use(express.json());
 
 // Simple logging middleware
-app.use((req, res, next) => {
-    console.log("We just got a new request")
-    console.log(`Request Method: ${req.method}`);
-    console.log(`Request URL: ${req.url}`);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log("We just got a new request")
+//     console.log(`Request Method: ${req.method}`);
+//     console.log(`Request URL: ${req.url}`);
+//     next();
+// });
 
 // Notes Routes
 app.use('/api/notes', notesRoutes);
