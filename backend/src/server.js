@@ -13,6 +13,12 @@ connectDB();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Simple logging middleware
+app.use((req, res, next) => {
+    console.log("We just got a new request")
+    next();
+});
+
 // Notes Routes
 app.use('/api/notes', notesRoutes);
 
