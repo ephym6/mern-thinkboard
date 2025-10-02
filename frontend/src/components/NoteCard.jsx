@@ -6,7 +6,6 @@ const NoteCard = ({note}) => {
   return (
     <Link to={`/note/${note._id}`}
             className="bg-base-200 p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-    >
         <div className="card-body">
             <h3 className='card-title text-base-content'>{note.title}</h3>
             <p className='text-base-content/70 line-clamp-3'>{note.content}</p>
