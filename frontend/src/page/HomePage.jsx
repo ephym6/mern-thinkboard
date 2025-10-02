@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar';
 import RateLimitedUI from "../components/RateLimitedUI.jsx";
 import axios from "axios";
 import toast from "react-hot-toast";
+import {PenSquareIcon, Trash2Icon} from "lucide-react";
+import NoteCard from "../components/NoteCard.jsx";
 
 const HomePage = () => {
     const [isRateLimited, setIsRateLimited] = useState('');
@@ -48,11 +50,7 @@ const HomePage = () => {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {notes.map((note) => (
-                            <div
-                                key={note._id} className="bg-base-200 p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                                <h2 className="text-xl font-semibold mb-2">{note.title ? note.title : 'No Title'}</h2>
-                                <p className="text-base-content/80">{note.content ? note.content : 'No Content'}</p>
-                            </div>
+                            <NoteCard key={note._id} note={note} />
                         ))}
                     </div>
                 )}
