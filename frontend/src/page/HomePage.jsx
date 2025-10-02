@@ -50,8 +50,8 @@ const HomePage = () => {
                         {notes.map((note) => (
                             <div
                                 key={note._id} className="bg-base-200 p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                                <h2 className="text-xl font-semibold mb-2">{note.title ? '' : 'No Title'}</h2>
-                                <p className="text-base-content/80">{note.content ? '' : 'No Content'}</p>
+                                <h2 className="text-xl font-semibold mb-2">{note.title ? note.title : 'No Title'}</h2>
+                                <p className="text-base-content/80">{note.content ? note.content : 'No Content'}</p>
                             </div>
                         ))}
                     </div>
