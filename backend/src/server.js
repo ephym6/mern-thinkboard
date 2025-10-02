@@ -13,11 +13,11 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(express.json()); // To parse JSON bodies
-app.use(rateLimiter); // Rate limiting middleware
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:5173',
 }));
+app.use(express.json()); // To parse JSON bodies
+app.use(rateLimiter); // Rate limiting middleware
 
 // Simple logging middleware
 // app.use((req, res, next) => {
