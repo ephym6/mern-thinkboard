@@ -3,8 +3,7 @@ import Navbar from '../components/Navbar';
 import RateLimitedUI from "../components/RateLimitedUI.jsx";
 import axios from "axios";
 import toast from "react-hot-toast";
-import {PenSquareIcon, Trash2Icon} from "lucide-react";
-import NoteCard from "../components/NoteCard.jsx";
+import NoteCard from "../components/NoteCard2.jsx";
 
 const HomePage = () => {
     const [isRateLimited, setIsRateLimited] = useState('');
