@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const HomePage = () => {
-    const [isRateLimited, setIsRateLimited] = useState(true);
+    const [isRateLimited, setIsRateLimited] = useState('');
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -17,7 +17,7 @@ const HomePage = () => {
                 setNotes(res.data);
                 setIsRateLimited(false);
                 console.log(
-                    `Fetched ${notes.length} notes from the API`
+                    `Fetched ${res.data.length} notes from the API`
                 )
             } catch (error) {
                 console.log('Error fetching notes:', error);
