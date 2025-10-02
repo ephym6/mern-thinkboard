@@ -11,12 +11,14 @@ const HomePage = () => {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/notes`);
+                const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/notes`);
                 console.log(res.data);
             } catch (error) {
                 console.log('Error fetching notes:', error);
             }
         }
+
+        fetchNotes();
     }, [])
 
     return (
