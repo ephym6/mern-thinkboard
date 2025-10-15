@@ -1,13 +1,28 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import {ArrowLeftIcon} from "lucide-react";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const CreatePage = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/notes`, { title, content });
+            toast.success('Note created successfully!');
+            navigate('/');
+        } catch (error) {
+            console.log('Error creating note:', error);
+            toast.error('Failed to create note. Please try again.');
+        }
     };
 
     return (
@@ -29,6 +44,7 @@ const CreatePage = () => {
                                     </label>
                                     <input
                                         type='text'
+                                        placeholder='Note Title'
                                         className='input input-bordered w-full'
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
@@ -41,6 +57,7 @@ const CreatePage = () => {
                                     </label>
                                     <textarea
                                         className='textarea textarea-bordered w-full h-40'
+                                        placeholder='Write your note here...'
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
                                         required
