@@ -14,30 +14,31 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null); // 🆕 Added error state
 
-    useEffect(() => {
-        const fetchNotes = async () => {
-            try {
-                const res = await api.get('/notes');
-                console.log(res.data);
-                setNotes(res.data);
-                setIsRateLimited(false);
-                setError(null); // clear previous errors if successful
-                console.log(
-                    `Fetched ${res.data.length} notes from the API`
-                )
-            } catch (error) {
-                console.log('Error fetching notes:', error);
-                if (error.response?.status === 429) {
-                    setIsRateLimited(true);
-                } else {
-                    setError("Unable to fetch notes from the database. Please try again later.");
-                    toast.error('Failed to load notes. Please try again later.');
-                }
-            } finally {
-                setLoading(false);
+    const fetchNotes = async () => {
+        try {
+            const res = await api.get('/notes');
+            console.log(res.data);
+            setNotes(res.data);
+            setIsRateLimited(false);
+            setError(null); // clear previous errors if successful
+            console.log(
+                `Fetched ${res.data.length} notes from the API`
+            )
+        } catch (error) {
+            console.log('Error fetching notes:', error);
+            if (error.response?.status === 429) {
+                setIsRateLimited(true);
+            } else {
+                setError("Unable to fetch notes. Please try again later.");
+                console.log('Error fetching notes from database:', error);
+                toast.error('Failed to load notes. Please try again later.');
             }
+        } finally {
+            setLoading(false);
         }
+    }
 
+    useEffect(() => {
         fetchNotes();
     }, [])
 
@@ -58,7 +59,17 @@ const HomePage = () => {
                 {/* Error or Empty state */}
                 {!loading && !isRateLimited && (
                     error ? (
-                        <p className="text-center text-lg text-red-500 py-10">{error}</p>
+                        <div className="text-center py-10">
+                            <p className="text-lg text-red-500 mb-4">{error}</p>
+                            {/* Retry Button */}
+                            <button
+                                onClick={fetchNotes}
+                                disabled={loading}
+                                className={`btn btn-primary ${loading ? "btn-disabled" : ""}`}
+                            >
+                                {loading ? "Fetching..." : "Retry"}
+                            </button>
+                        </div>
                     ) : notes.length === 0 ? (
                         <NotesNotFound />
                     ) : null
