@@ -14,6 +14,10 @@ const CreatePage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // if (!title.trim() || !content.trim()) return toast.error(
+        //     'Please fill in all the fields.'
+        // )
+
         setLoading(true);
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/api/notes`, { title, content });
@@ -22,6 +26,13 @@ const CreatePage = () => {
         } catch (error) {
             console.log('Error creating note:', error);
             toast.error('Failed to create note. Please try again.');
+            if (error.response?.status === 429) {
+                toast.error('Rate limit reached. Please wait and try again later.');
+                duration: 4000;
+                icon: '⚠️';
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
