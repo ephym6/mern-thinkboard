@@ -12,6 +12,7 @@ const HomePage = () => {
     const [isRateLimited, setIsRateLimited] = useState(null);
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // 🆕 Added error state
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -20,6 +21,7 @@ const HomePage = () => {
                 console.log(res.data);
                 setNotes(res.data);
                 setIsRateLimited(false);
+                setError(null); // clear previous errors if successful
                 console.log(
                     `Fetched ${res.data.length} notes from the API`
                 )
@@ -28,6 +30,7 @@ const HomePage = () => {
                 if (error.response?.status === 429) {
                     setIsRateLimited(true);
                 } else {
+                    setError("Unable to fetch notes from the database. Please try again later.");
                     toast.error('Failed to load notes. Please try again later.');
                 }
             } finally {
@@ -49,6 +52,13 @@ const HomePage = () => {
                 {loading && (
                     <p className="text-center text-lg text-base-content/70 py-10">
                         Loading notes...
+                    </p>
+                )}
+
+                {/* Error state */}
+                {!loading && error && !isRateLimited && (
+                    <p className="text-center text-lg text-red-500 py-10">
+                        {error}
                     </p>
                 )}
 
