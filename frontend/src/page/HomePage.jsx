@@ -55,15 +55,14 @@ const HomePage = () => {
                     </p>
                 )}
 
-                {/* Error state */}
-                {!loading && error && !isRateLimited && (
-                    <p className="text-center text-lg text-red-500 py-10">
-                        {error}
-                    </p>
+                {/* Error or Empty state */}
+                {!loading && !isRateLimited && (
+                    error ? (
+                        <p className="text-center text-lg text-red-500 py-10">{error}</p>
+                    ) : notes.length === 0 ? (
+                        <NotesNotFound />
+                    ) : null
                 )}
-
-                {/* No notes found */}
-                {!loading && notes.length === 0 && !isRateLimited && <NotesNotFound />}
 
                 {/* Notes grid */}
                 {!loading && notes.length > 0 && !isRateLimited && (
