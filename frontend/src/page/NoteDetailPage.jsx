@@ -60,7 +60,7 @@ const NoteDetailPage = ({ noteId, onClose }) => {
     const handleDelete = async () => {
         try {
             await api.delete(`/notes/${noteId}`);
-            toast.success("Note deleted");
+            toast.success("Note deleted successfully");
             setShowDeleteModal(false);
             onClose();
         } catch (error) {
