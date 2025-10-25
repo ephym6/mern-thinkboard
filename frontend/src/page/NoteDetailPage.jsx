@@ -16,7 +16,8 @@ const NoteDetailModal = ({ noteId, onClose }) => {
         const fetchNote = async () => {
             try {
                 const res = await api.get(`/notes/${noteId}`);
-                setNote(res.data);
+                console.log("Fetched note:", res.data);
+                setNote(res.data.note);
                 setOriginalNote(res.data);
             } catch (error) {
                 console.error("Error fetching note:", error);
