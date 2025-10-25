@@ -3,7 +3,7 @@ import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 
-const NoteDetailModal = ({ noteId, onClose }) => {
+const NoteDetailPage = ({ noteId, onClose }) => {
     const [note, setNote] = useState(null);
     const [originalNote, setOriginalNote] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -102,25 +102,31 @@ const NoteDetailModal = ({ noteId, onClose }) => {
                     className="bg-base-100 rounded-xl shadow-xl w-full max-w-2xl p-6 relative"
                     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                 >
-                    {/* Close Button */}
-                    <button
-                        onClick={handleClose}
-                        className="absolute top-3 right-4 text-base-content/60 hover:text-base-content"
-                    >
-                        ✕
-                    </button>
 
                     {/* Header */}
                     <div className="flex items-center justify-between mb-6">
-                        <button onClick={handleClose} className="btn btn-ghost">
+                        {/* Left: Back button */}
+                        <button onClick={handleClose} className="btn btn-ghost flex items-center gap-2">
                             <ArrowLeftIcon className="h-5 w-5" /> Back
                         </button>
-                        <button
-                            onClick={() => setShowDeleteModal(true)}
-                            className="btn btn-error btn-outline"
-                        >
-                            <Trash2Icon className="h-5 w-5" /> Delete
-                        </button>
+
+                        {/* Right: Delete + Close buttons with spacing */}
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setShowDeleteModal(true)}
+                                className="btn btn-error btn-outline flex items-center gap-2"
+                            >
+                                <Trash2Icon className="h-5 w-5" />
+                                Delete
+                            </button>
+
+                            <button
+                                onClick={handleClose}
+                                className="btn btn-ghost text-base-content/60 hover:text-base-content text-lg font-bold"
+                            >
+                                ✕
+                            </button>
+                        </div>
                     </div>
 
                     {/* Note Details */}
@@ -217,4 +223,4 @@ const NoteDetailModal = ({ noteId, onClose }) => {
     );
 };
 
-export default NoteDetailModal;
+export default NoteDetailPage;
