@@ -47,6 +47,7 @@ const NoteCard = ({ note, setNotes }) => {
                                 className="btn btn-ghost btn-xs text-error"
                                 onClick={(e) => {
                                     e.preventDefault(); // prevent Link navigation
+                                    e.stopPropagation(); // stop click from triggering parent Link
                                     setShowConfirm(true); // open modal
                                 }}
                             >
@@ -71,14 +72,20 @@ const NoteCard = ({ note, setNotes }) => {
                         <div className="flex justify-center gap-3">
                             <button
                                 className="btn btn-ghost"
-                                onClick={() => setShowConfirm(false)}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // ✅ Prevent triggering the card click
+                                    setShowConfirm(false)
+                                }}
                                 disabled={deleting}
                             >
                                 Cancel
                             </button>
                             <button
                                 className={`btn btn-error ${deleting ? "btn-disabled" : ""}`}
-                                onClick={() => handleDelete(note._id)}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // ✅ Prevent triggering the card click
+                                    handleDelete(note._id)
+                                }}
                             >
                                 {deleting ? "Deleting..." : "Delete"}
                             </button>
