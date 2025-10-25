@@ -96,8 +96,10 @@ const HomePage = () => {
                 {selectedNoteId && (
                     <NoteDetailPage
                         noteId={selectedNoteId}
-                        onClose={() => setSelectedNoteId(null)}
-                    />
+                        onClose={() => {
+                            setSelectedNoteId(null);
+                            fetchNotes(); // ✅ Refresh when modal closes
+                    }} />
                 )}
             </div>
         </div>
