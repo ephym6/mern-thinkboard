@@ -10,6 +10,8 @@ const NoteDetailPage = ({ noteId, onClose }) => {
     const [saving, setSaving] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showUnsavedModal, setShowUnsavedModal] = useState(false);
+    const [originalTitle, setOriginalTitle] = useState("");
+    const [originalContent, setOriginalContent] = useState("");
 
     // ✅ Fetch the note details
     useEffect(() => {
@@ -18,6 +20,8 @@ const NoteDetailPage = ({ noteId, onClose }) => {
                 const res = await api.get(`/notes/${noteId}`);
                 console.log("Fetched note:", res.data);
                 setNote(res.data.note);
+                setOriginalTitle(res.data.note.title);
+                setOriginalContent(res.data.note.content);
                 setOriginalNote(res.data);
             } catch (error) {
                 console.error("Error fetching note:", error);
@@ -68,8 +72,8 @@ const NoteDetailPage = ({ noteId, onClose }) => {
     const hasUnsavedChanges =
         note &&
         originalNote &&
-        (note.title !== originalNote.title ||
-            note.content !== originalNote.content);
+        (note.title !== originalTitle ||
+            note.content !== originalContent);
 
     const handleClose = () => {
         if (hasUnsavedChanges) {
