@@ -7,11 +7,13 @@ import Navbar from '../components/Navbar';
 import RateLimitedUI from "../components/RateLimitedUI.jsx";
 import NoteCard from "../components/NoteCard.jsx";
 import NotesNotFound from "../components/NotesNotFound.jsx";
+import NoteDetailPage from "./NoteDetailPage.jsx";
 
 const HomePage = () => {
     const [isRateLimited, setIsRateLimited] = useState(null);
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedNoteId, setSelectedNoteId] = useState(null);
     const [error, setError] = useState(null); // 🆕 Added error state
 
     const fetchNotes = async () => {
@@ -79,9 +81,23 @@ const HomePage = () => {
                 {!loading && notes.length > 0 && !isRateLimited && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {notes.map((note) => (
-                            <NoteCard key={note._id} note={note} setNotes={setNotes} />
+                            <div
+                                key={note._id}
+                                onClick={() => setSelectedNoteId(note._id)}
+                                className="cursor-pointer"
+                            >
+                                <NoteCard note={note} setNotes={setNotes} />
+                            </div>
                         ))}
                     </div>
+                )}
+
+                {/* Modal appears if a note is selected */}
+                {selectedNoteId && (
+                    <NoteDetailPage
+                        noteId={selectedNoteId}
+                        onClose={() => setSelectedNoteId(null)}
+                    />
                 )}
             </div>
         </div>
