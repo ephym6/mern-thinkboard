@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { formatDate } from "../lib/utils.js";
 import api from "../lib/axios.js";
@@ -27,8 +27,8 @@ const NoteCard = ({ note, setNotes }) => {
     return (
         <>
             {/* Main card */}
-            <Link
-                to={`/note/${note._id}`}
+            <div
+                onClick={() => navigate(`/note/${note._id}`)}
                 className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#00FF9D]"
             >
                 <div className="card-body">
@@ -55,7 +55,7 @@ const NoteCard = ({ note, setNotes }) => {
                         </div>
                     </div>
                 </div>
-            </Link>
+            </div>
 
             {/* 🧱 Confirmation Modal */}
             {showConfirm && (
