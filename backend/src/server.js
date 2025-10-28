@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 
 import notesRoutes from './routes/notesRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import connectDB from "./config/db.js";
 import { rateLimiter } from "./middleware/rateLimiter.js";
 
@@ -30,6 +31,9 @@ app.use(rateLimiter); // Rate limiting middleware
 //     console.log(`Request URL: ${req.url}`);
 //     next();
 // });
+
+// Auth Routes
+app.use('/api/auth', authRoutes);
 
 // Notes Routes
 app.use('/api/notes', notesRoutes);
