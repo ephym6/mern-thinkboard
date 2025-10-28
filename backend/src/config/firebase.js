@@ -1,12 +1,9 @@
 import admin from 'firebase-admin';
+import serviceAccount from './mern-thinkboard-firebase-adminsdk-fbsvc-1cf49ae3a1.json' with { type: "json" }
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
-    credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    }),
+    credential: admin.credential.cert(serviceAccount),
 });
 
 export const auth = admin.auth();
