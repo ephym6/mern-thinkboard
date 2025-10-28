@@ -10,6 +10,11 @@ const noteSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userId: {
+        type: String,
+        required: true,
+        ref: 'User', // Reference to the User model
+    },
 }, { timestamps: true} // Automatically manage createdAt and updatedAt fields
 );
 
