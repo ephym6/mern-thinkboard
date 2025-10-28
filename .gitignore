@@ -159,3 +159,6 @@ dump/
 # Serverless / deployment
 .vercel/
 .netlify/
+
+# Firebase private key
+backend/src/config/mern-thinkboard-firebase-adminsdk-fbsvc-1cf49ae3a1.json
